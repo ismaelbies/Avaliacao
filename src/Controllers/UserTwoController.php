@@ -63,7 +63,8 @@ class UserTwoController extends Controller
                 $user = $this->em->getRepository(User::class)->find($data['userId']);
             }
             $user->setEmail($data['email'])
-                ->setName($data['name']);
+                ->setName($data['name'])
+                ->setPhone($data['phone']);
             $this->em->getRepository(User::class)->save($user);
             $this->em->commit();
             return $response->withJson([
@@ -102,7 +103,7 @@ class UserTwoController extends Controller
         $id = $request->getAttribute('route')->getArgument('id');
         $filter = (array)$request->getParams();
         $index = $request->getParam('index');
-        $users = $this->em->getRepository(User::class)->list(10, 10 * $index, $filter, $id);
+        $users = $this->em->getRepository(User::class)->list(20, 20 * $index, $filter, $id);
         $partial = count($users);
         $total = $this->em->getRepository(User::class)->countUsers($filter);
         return $response->withJson([

@@ -27,7 +27,7 @@ class UserRepository extends EntityRepository
         $params = [];
         $where = $this->generateWhere($filter, $params, $id);
         $pdo = $this->getEntityManager()->getConnection()->getWrappedConnection();
-        $sql = "SELECT users.id, users.name, users.email FROM users 
+        $sql = "SELECT users.id, users.name, users.email, users.phone FROM users 
                 WHERE 1 = 1 {$where}
                 ORDER BY name ASC";
         $stm = $pdo->prepare($sql);

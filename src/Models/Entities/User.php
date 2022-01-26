@@ -2,6 +2,8 @@
 
 
 namespace App\Models\Entities;
+use App\Helpers\Utils;
+
 /**
  * @Entity @Table(name="users")
  * @ORM @Entity(repositoryClass="App\Models\Repository\UserRepository")
@@ -23,6 +25,12 @@ class User
      * @Column(type="string")
      */
     private string $email = '';
+
+    /**
+     * @Column(type="string")
+     */
+    private string $phone = '';
+
 
     public function getId(): ?int
     {
@@ -48,6 +56,17 @@ class User
     public function setEmail(string $email): User
     {
         $this->email = $email;
+        return $this;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): User
+    {
+        $this->phone = Utils::onlyNumbers($phone);
         return $this;
     }
 }
