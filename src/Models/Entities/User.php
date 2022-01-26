@@ -31,6 +31,11 @@ class User
      */
     private string $phone = '';
 
+    /**
+     * @Column(type="string")
+     */
+    private string $path = '';
+
 
     public function getId(): ?int
     {
@@ -67,6 +72,17 @@ class User
     public function setPhone(string $phone): User
     {
         $this->phone = Utils::onlyNumbers($phone);
+        return $this;
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    public function setPath(string $path): User
+    {
+        $this->path = $path;
         return $this;
     }
 }
