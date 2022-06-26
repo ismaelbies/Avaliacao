@@ -16,6 +16,12 @@ class RegisterController extends Controller
             'user' => $user]);
     }
 
+    public function indexRegisterUsuario(Request $request, Response $response) {
+        $user = $this->getLogged();
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/aluno.phtml',
+            'user' => $user]);
+    }
+
     public function indexNovoUsuario(Request $request, Response $response) {
         return $this->renderer->render($response, 'default2.phtml', ['page' => 'cadastros/novo-usuario.phtml',]);
     }

@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8"/>
-<!--    <link rel="icon" href="--><?//= BASEURL ?><!--assets/img/logo.png">-->
+    <!--    <link rel="icon" href="--><? //= BASEURL ?><!--assets/img/logo.png">-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>Avaliação Técnica</title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
@@ -36,11 +36,13 @@
                         <i class="fa fa-user"></i>
                     </a>
                 </li>
-                <li>
-                    <a href="<?= BASEURL ?>cadastros/pergunta">Perguntas
-                        <i class="fa fa-question"></i>
-                    </a>
-                </li>
+                <?php if ($user->getTipoUsuario() == 1): ?>
+                    <li>
+                        <a href="<?= BASEURL ?>cadastros/pergunta">Perguntas
+                            <i class="fa fa-question"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
