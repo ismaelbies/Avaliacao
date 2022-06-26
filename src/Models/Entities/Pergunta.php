@@ -19,7 +19,11 @@ class Pergunta
      */
     private string $descricao = '';
 
-//    private ?Professor $professor = null;
+    /**
+     * @ManyToOne(targetEntity="UserQuiz")
+     * @JoinColumn(name="professor", referencedColumnName="id")
+     */
+    private UserQuiz $professor;
 
     /**
      * @Column(type="string")
@@ -72,17 +76,17 @@ class Pergunta
         $this->descricao = $descricao;
         return $this;
     }
-//
-//    public function getProfessor(): ?Professor
-//    {
-//        return $this->professor;
-//    }
-//
-//    public function setProfessor(?Professor $professor): Pergunta
-//    {
-//        $this->professor = $professor;
-//        return $this;
-//    }
+
+    public function getProfessor(): UserQuiz
+    {
+        return $this->professor;
+    }
+
+    public function setProfessor(UserQuiz $professor): Pergunta
+    {
+        $this->professor = $professor;
+        return $this;
+    }
 
     public function getDificuldade(): string
     {

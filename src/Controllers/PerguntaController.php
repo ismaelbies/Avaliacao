@@ -32,7 +32,8 @@ class PerguntaController extends Controller
                 ->setAlternativa5($data['alternativa5'])
                 ->setAlternativaCorreta($data['alternativaCorreta'] ?? '')
                 ->setDescricao($data['descricao'])
-                ->setDificuldade($data['dificuldade'] ?? '');
+                ->setDificuldade($data['dificuldade'] ?? '')
+                ->setProfessor($this->getLogged());
 
             $this->em->getRepository(Pergunta::class)->save($pergunta);
             return $response->withJson([
@@ -52,7 +53,7 @@ class PerguntaController extends Controller
         $array = [];
         foreach ($perguntas as $p) {
             $array[] = ['id' => $p->getId(),
-                'professor' => $p->getProfessor() != null ? $p->getProfessor() : '---',
+                'professor' => $p->getProfessor() != null ? $p->getProfessor()->getName() : '---',
                 'descricao' => $p->getDescricao(), 'dificuldade' => $p->getDificuldade()];
         }
         return $response->withJson([

@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 
+use App\Models\Entities\Pergunta;
 use App\Models\Entities\UserQuiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -20,6 +21,19 @@ class RegisterController extends Controller
         $user = $this->getLogged();
         return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/aluno.phtml',
             'user' => $user]);
+    }
+
+    public function indexRegisterQuiz(Request $request, Response $response) {
+        $user = $this->getLogged();
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/quiz.phtml',
+            'user' => $user]);
+    }
+
+    public function indexRegisterNewQuiz(Request $request, Response $response) {
+        $user = $this->getLogged();
+        $perguntas = $this->em->getRepository(Pergunta::class)->findAll();
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/novo-quiz.phtml',
+            'user' => $user, 'perguntas' => $perguntas]);
     }
 
     public function indexNovoUsuario(Request $request, Response $response) {
@@ -40,6 +54,24 @@ class RegisterController extends Controller
             return $response->withJson([
                 'status' => 'ok',
                 'message' => 'Usuário cadastrado com sucesso!'
+            ])->withHeader('Content-Type','application/json');
+        } catch (\Exception $e) {
+            return $response->withJson([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ])->withStatus(500);
+        }
+    }
+
+    public function registerQuiz(Request $request, Response $response) {
+        try {
+            $data = (array)$request->getParams();
+            $quiz = new Quiz();
+
+
+            return $response->withJson([
+                'status' => 'ok',
+                'message' => 'Quiz cadastrado com sucesso!'
             ])->withHeader('Content-Type','application/json');
         } catch (\Exception $e) {
             return $response->withJson([
