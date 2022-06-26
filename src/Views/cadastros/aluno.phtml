@@ -209,7 +209,7 @@
         showLoading();
         let name = $("#nameFilter").val();
         let email = $("#emailFilter").val();
-        fetch(`<?= BASEURL ?>api/cadastros/aluno/?name=${name}&email=${email}`, {
+        fetch(`<?= BASEURL ?>api/cadastros/aluno/` + 0, {
             method: 'GET',
             credentials: "same-origin",
             headers: {

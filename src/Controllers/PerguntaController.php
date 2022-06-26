@@ -16,7 +16,9 @@ class PerguntaController extends Controller
     }
 
     public function registerPerguntaIndex(Request $request, Response $response) {
-        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/pergunta-form.phtml']);
+        $user = $this->getLogged();
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/pergunta-form.phtml',
+            'user' => $user]);
     }
 
     public function registerPergunta(Request $request, Response $response) {
