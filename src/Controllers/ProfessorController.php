@@ -37,7 +37,7 @@ class ProfessorController extends Controller
         $profs = $this->em->getRepository(Professor::class)->findAll();
         $array = [];
         foreach ($profs as $p) {
-            $array[] = ['id' => $p->getId(), 'name' => $p->getName(), 'senha' => $p->getPassword()];
+            $array[] = ['id' => $p->getId(), 'name' => $p->getName(), 'email' => $p->getEmail()];
         }
         return $response->withJson([
             'status' => 'ok',
