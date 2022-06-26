@@ -6,34 +6,34 @@
             <div class="modal-body no-padding">
                 <div class="row">
                     <div class="col-12">
-                        <form id="filter">
+                        <form id="form">
                             <div class="form-group col-md-12">
-                                <label for="pergunta">Pergunta</label>
-                                <textarea type="text" id="pergunta" name="pergunta" class="form-control"></textarea>
+                                <label for="descricao">Pergunta</label>
+                                <textarea type="text" id="descricao" name="descricao" class="form-control"></textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="alternativa1">Alternativa 1</label>
                                 <input type="text" id="alternativa1" name="alternativa1" class="form-control">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="alternativa1">Alternativa 2</label>
-                                <input type="text" id="alternativa1" name="alternativa1" class="form-control">
+                                <label for="alternativa2">Alternativa 2</label>
+                                <input type="text" id="alternativa2" name="alternativa2" class="form-control">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="alternativa1">Alternativa 3</label>
-                                <input type="text" id="alternativa1" name="alternativa1" class="form-control">
+                                <label for="alternativa3">Alternativa 3</label>
+                                <input type="text" id="alternativa3" name="alternativa3" class="form-control">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="alternativa1">Alternativa 4</label>
-                                <input type="text" id="alternativa1" name="alternativa1" class="form-control">
+                                <label for="alternativa4">Alternativa 4</label>
+                                <input type="text" id="alternativa4" name="alternativa4" class="form-control">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="alternativa1">Alternativa 5</label>
-                                <input type="text" id="alternativa1" name="alternativa1" class="form-control">
+                                <label for="alternativa5">Alternativa 5</label>
+                                <input type="text" id="alternativa5" name="alternativa5" class="form-control">
                             </div>
                             <div class="form-row">
-                                <button type="button" class="btn btn-success float-right" onclick="resetForm()">Limpar</button>
-                                <button type="button" class="btn btn-info float-right" onclick="filter()">Filtrar</button>
+                                <button type="button" class="btn btn-danger float-right" onclick="resetForm()">Limpar</button>
+                                <button type="submit" class="btn btn-success float-right">Cadastrar</button>
                             </div>
                         </form>
                     </div>
@@ -50,63 +50,11 @@
 </div>
 </div>
 
-<!--Modal-->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Cadastro Aluno</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                    <span aria-hidden="true">&times</span>
-                </button>
-            </div>
-            <form id="userForm" method="POST" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <input type="hidden" id="userId" name="userId">
-                            <div class="form-group">
-                                <label for="name">Nome</label>
-                                <input type="text" id="name" name="name" placeholder="Nome" required
-                                       class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" id="email" name="email" placeholder="Email" required
-                                       class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Senha</label>
-                                <input type="password" id="password" name="password" placeholder="Senha" required
-                                       class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="matricula">Matricula</label>
-                                <input type="text" id="matricula" class="form-control" name="matricula"
-                                       placeholder="Matricula">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info float-right" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Cadastrar</button>
-                </div>
-            </form>
-            <div class="col">
-                <div class="footer">
-                    <div id="message2" class="mt-2 alert alert-danger d-none">teste</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
 
     var message = document.getElementById('message');
     var message2 = document.getElementById('message2');
-    var form = document.getElementById('userForm');
+    var form = document.getElementById('form');
     let total = 1;
     let partial = 0;
     let index = 0;
@@ -240,8 +188,8 @@
     form.addEventListener(`submit`, e => {
         e.preventDefault();
         showLoading();
-        let data = formDataToJson('userForm');
-        fetch(`<?= BASEURL ?>api/cadastros/aluno`, {
+        let data = formDataToJson('form');
+        fetch(`<?= BASEURL ?>api/cadastros/pergunta`, {
             method: 'POST',
             credentials: "same-origin",
             headers: {
@@ -251,12 +199,13 @@
             body: JSON.stringify(data)
         }).then(response => {
             response.json().then(json => {
-                message2.innerText = json.message;
+                changeMessageType(json.status, 'message');
+                message.innerText = json.message;
                 closeLoading();
                 if (json.status == 'ok') {
-                    $("#userTable tbody").empty();
-                    getUsers();
-                    $("#modal").modal('hide');
+                    setTimeout(function () {
+                        window.location.href = "<?= BASEURL ?>cadastros/pergunta/";
+                    }, 2000);
                 }
             });
         });

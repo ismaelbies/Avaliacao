@@ -9,4 +9,6 @@ $app->get('/api/cadastros/aluno/', fn(Request $request, Response $response) => $
 
 $app->post('/api/cadastros/professor/', fn(Request $request, Response $response) => $this->ProfessorController->registerProfessor($request, $response));
 
+$app->post('/api/cadastros/pergunta/', fn(Request $request, Response $response) => $this->PerguntaController->registerPergunta($request, $response));
+
 $app->get('/api/cadastros/professor/', fn(Request $request, Response $response) => $this->ProfessorController->getProfessores($request, $response));
