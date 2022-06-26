@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">Cadastro de Usuário
             <div class="form-row float-right">
-                <button type="button" onclick="openModal(0)" class="btn btn-info">Aluno <i class="fa fa-plus"></i></button>
+                <button type="button" onclick="openModal(0)" class="btn btn-info">Usuário <i class="fa fa-plus"></i></button>
             </div>
         </div>
 
@@ -38,7 +38,7 @@
                             <thead>
                             <th class="text-center">Nome</th>
                             <th class="text-center">Email</th>
-                            <!--<th class="text-center">Fone</th>-->
+                            <th class="text-center">Tipo de Usuário</th>
                             <th class="text-center">Ações</th>
                             </thead>
                             <tbody>
@@ -61,7 +61,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Cadastro de Aluno</h5>
+                <h5 class="modal-title" id="modalTitle">Cadastro de Usuário</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times</span>
                 </button>
@@ -183,6 +183,7 @@
             <tr>
                 <td class="text-center">${json.name}</td>
                 <td class="text-center">${json.email}</td>
+                <td class="text-center">${json.tipoUsuario}</td>
                 <td class="text-center">${icons}</td>
             </tr>
         `;
