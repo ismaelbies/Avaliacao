@@ -26,13 +26,15 @@ class PerguntaController extends Controller
                 ->setAlternativa3($data['alternativa3'])
                 ->setAlternativa4($data['alternativa4'])
                 ->setAlternativa5($data['alternativa5'])
+                ->setAlternativaCorreta($data['alternativaCorreta'] ?? '')
                 ->setDescricao($data['descricao'])
                 ->setDificuldade($data['dificuldade'] ?? '')
+
                 ->setProfessor(null);
             $this->em->getRepository(Pergunta::class)->save($pergunta);
             return $response->withJson([
                 'status' => 'ok',
-                'message' => 'Pergunta cadastrado com sucesso'
+                'message' => 'Pergunta cadastrada com sucesso!'
             ])->withHeader('Content-Type','application/json');
         } catch (\Exception $e) {
             return $response->withJson([
@@ -46,8 +48,9 @@ class PerguntaController extends Controller
         $perguntas = $this->em->getRepository(Pergunta::class)->findAll();
         $array = [];
         foreach ($perguntas as $p) {
-            $array[] = ['id' => $p->getId(), 'descrica' => $p->getDescricao(), 'dificuldade' => $p->getDificuldade(),
-                'professor' => $p->getProfessor() != null ? $p->getProfessor() : '---'];
+            $array[] = ['id' => $p->getId(),
+                'professor' => $p->getProfessor() != null ? $p->getProfessor() : '---',
+                'descricao' => $p->getDescricao(), 'dificuldade' => $p->getDificuldade()];
         }
         return $response->withJson([
             'status' => 'ok',

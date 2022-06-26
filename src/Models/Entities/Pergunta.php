@@ -55,6 +55,12 @@ class Pergunta
      */
     private string $alternativa5 = '';
 
+    /**
+     * @Column(type="text")
+     */
+    private string $alternativaCorreta = '';
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,6 +151,17 @@ class Pergunta
     public function setAlternativa5(string $alternativa5): Pergunta
     {
         $this->alternativa5 = $alternativa5;
+        return $this;
+    }
+
+    public function getAlternativaCorreta(): string
+    {
+        return $this->alternativaCorreta;
+    }
+
+    public function setAlternativaCorreta(string $alternativaCorreta): Pergunta
+    {
+        $this->alternativaCorreta = $alternativaCorreta;
         return $this;
     }
 }
