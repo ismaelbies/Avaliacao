@@ -11,6 +11,7 @@ use App\Models\Entities\State;
 use App\Models\Entities\Transaction;
 use App\Models\Entities\User;
 use App\Models\Entities\UserAdmin;
+use App\Models\Entities\UserQuiz;
 use App\Services\Email;
 use Doctrine\ORM\EntityManager;
 use App\Models\Entities\Candidate;
@@ -41,6 +42,18 @@ abstract class Controller
         return $config[$config['environment']];
     }
 
+    protected function getLogged(bool $excepetion = false)
+    {
+        $user = $this->em->getRepository(UserQuiz::class)->find(Session::get(Session::get('accessType')) ?? 0);
+        if (!$user) {
+            if ($excepetion) throw new \Exception("Você precisa se autenticar");
+            Session::set('redirect', $_SERVER["REQUEST_URI"]);
+            Session::set('errorMsg', 'Você precisa se autenticar');
+            $this->redirect('login');
+            exit;
+        }
+        return $user;
+    }
 
     protected function redirect(string $url = '')
     {
@@ -54,5 +67,14 @@ abstract class Controller
         die();
     }
 
-
+    protected function checkPermission($permissionId, bool $redirect = true)
+    {
+        if (!in_array($permissionId, Session::get('permissions')) && $redirect) {
+            $this->redirectByPermissions();
+        }
+        if (!in_array($permissionId, Session::get('permissions'))) {
+            return false;
+        }
+        return true;
+    }
 }

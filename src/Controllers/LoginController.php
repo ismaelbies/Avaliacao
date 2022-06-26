@@ -2,6 +2,7 @@
 
 
 namespace App\Controllers;
+use App\Helpers\Session;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
