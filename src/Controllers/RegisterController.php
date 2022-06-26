@@ -49,7 +49,7 @@ class RegisterController extends Controller
         $array = [];
         foreach ($users as $u) {
             $array[] = ['id' => $u->getId(), 'name' => $u->getName(), 'email' => $u->getEmail(),
-                'matricula' => $u->getMatricula(), 'tipo' => $u->getTipoUsuario()];
+                'tipoUsuario' => $u->getTipoUsuario()];
         }
         return $response->withJson([
             'status' => 'ok',
