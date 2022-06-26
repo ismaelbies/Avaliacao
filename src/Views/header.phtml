@@ -53,6 +53,18 @@
                         </a>
                     </li>
                 <?php endif; ?>
+                <?php if ($user->getTipoUsuario() == 0): ?>
+                    <li>
+                        <a href="<?= BASEURL ?>">Jogar Quiz
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= BASEURL ?>">Visualizar Resultados
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
