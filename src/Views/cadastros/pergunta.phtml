@@ -174,10 +174,9 @@
         icons += `<i class="fa fa-times text-danger" title="Deletar ${json.name}" onclick="removeUser(${json.id})"></i> `;
         return `
             <tr>
-                <td class="text-center">${json.name}</td>
-                <td class="text-center">${json.email}</td>
-                <td class="text-center">${formatPhoneNumber(json.phone)}</td>
-                <td class="text-center">${icons}</td>
+                <td class="text-center">${json.descricao}</td>
+                <td class="text-center">${json.dificuldade}</td>
+                <td class="text-center">${json.professor}</td>
             </tr>
         `;
     }
@@ -199,11 +198,9 @@
         return '';
     }
 
-    function getUsers() {
+    function getPerguntas() {
         showLoading();
-        let name = $("#nameFilter").val();
-        let email = $("#emailFilter").val();
-        fetch(`<?= BASEURL ?>api/cadastros/aluno/?name=${name}&email=${email}`, {
+        fetch(`<?= BASEURL ?>api/cadastros/pergunta/`, {
             method: 'GET',
             credentials: "same-origin",
             headers: {
@@ -243,60 +240,8 @@
         });
     }
 
-    form.addEventListener(`submit`, e => {
-        e.preventDefault();
-        showLoading();
-        let data = formDataToJson('userForm');
-        fetch(`<?= BASEURL ?>api/cadastros/aluno`, {
-            method: 'POST',
-            credentials: "same-origin",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(response => {
-            response.json().then(json => {
-                message2.innerText = json.message;
-                closeLoading();
-                if(json.status == 'ok') {
-                    $("#userTable tbody").empty();
-                    getUsers();
-                    $("#modal").modal('hide');
-                }
-            });
-        });
-    });
-
-    //form.addEventListener('submit', e => {
-    //    e.preventDefault();
-    //    showLoading();
-    //    let formData = formDataToJson('userForm');
-    //    let method = 'POST';
-    //    if(formData.userId > 0) method = 'PUT';
-    //    fetch(`<?//= BASEURL ?>//usuario/`, {
-    //        method: 'POST',
-    //        credentials: "same-origin",
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json',
-    //        },
-    //        body: JSON.stringify(formData),
-    //    }).then(response => {
-    //        response.json().then(json => {
-    //            closeLoading();
-    //            changeMessageType(json.status, 'message2');
-    //            message2.innerText = json.message;
-    //            if (json.status === 'ok') {
-    //                $("#modal").modal('hide');
-    //                filter();
-    //            }
-    //        });
-    //    });
-    //});
-
     $(document).ready(function () {
-        getUsers();
+        getPerguntas();
     });
 
 </script>

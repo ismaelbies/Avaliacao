@@ -2,6 +2,7 @@
 
 
 namespace App\Controllers;
+use App\Models\Entities\Aluno;
 use App\Models\Entities\Pergunta;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -39,5 +40,18 @@ class PerguntaController extends Controller
                 'message' => $e->getMessage()
             ])->withStatus(500);
         }
+    }
+
+    public function getPerguntas(Request $request, Response $response) {
+        $perguntas = $this->em->getRepository(Pergunta::class)->findAll();
+        $array = [];
+        foreach ($perguntas as $p) {
+            $array[] = ['id' => $p->getId(), 'descrica' => $p->getDescricao(), 'dificuldade' => $p->getDificuldade(),
+                'professor' => $p->getProfessor() != null ? $p->getProfessor() : '---'];
+        }
+        return $response->withJson([
+            'status' => 'ok',
+            'message' => $array,
+        ])->withHeader('Content-Type','application/json');
     }
 }

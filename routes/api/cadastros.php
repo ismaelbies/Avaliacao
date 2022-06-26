@@ -11,4 +11,6 @@ $app->post('/api/cadastros/professor/', fn(Request $request, Response $response)
 
 $app->post('/api/cadastros/pergunta/', fn(Request $request, Response $response) => $this->PerguntaController->registerPergunta($request, $response));
 
+$app->get('/api/cadastros/pergunta/', fn(Request $request, Response $response) => $this->PerguntaController->getPerguntas($request, $response));
+
 $app->get('/api/cadastros/professor/', fn(Request $request, Response $response) => $this->ProfessorController->getProfessores($request, $response));
