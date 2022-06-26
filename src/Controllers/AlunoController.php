@@ -41,7 +41,7 @@ class AlunoController extends Controller
         $alunos = $this->em->getRepository(Aluno::class)->findAll();
         $array = [];
         foreach ($alunos as $a) {
-            $array[] = ['id' => $a->getId(), 'name' => $a->getName(), 'matricula' => $a->getMatricula()];
+            $array[] = ['id' => $a->getId(), 'name' => $a->getName(), 'email' => $a->getEmail()];
         }
         return $response->withJson([
             'status' => 'ok',

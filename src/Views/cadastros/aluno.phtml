@@ -38,7 +38,7 @@
                             <thead>
                             <th class="text-center">Nome</th>
                             <th class="text-center">Email</th>
-                            <th class="text-center">Fone</th>
+                            <!--<th class="text-center">Fone</th>-->
                             <th class="text-center">Ações</th>
                             </thead>
                             <tbody>
@@ -136,7 +136,7 @@
                     let user = json.message[0];
                     $("#name").val(user.name);
                     $("#email").val(user.email);
-                    $("#phone").val(formatPhoneNumber(user.phone));
+                    //$("#phone").val(formatPhoneNumber(user.phone));
                     closeLoading();
                 });
             });
@@ -176,7 +176,6 @@
             <tr>
                 <td class="text-center">${json.name}</td>
                 <td class="text-center">${json.email}</td>
-                <td class="text-center">${formatPhoneNumber(json.phone)}</td>
                 <td class="text-center">${icons}</td>
             </tr>
         `;
@@ -190,14 +189,14 @@
         getUsers();
     }
 
-    function formatPhoneNumber(phoneNumberString) {
+    /*function formatPhoneNumber(phoneNumberString) {
         var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
         var match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
         if (match) {
             return '(' + match[1] + ') ' + match[2] + '-' + match[3];
         }
         return '';
-    }
+    }*/
 
     function getUsers() {
         showLoading();
