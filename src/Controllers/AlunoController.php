@@ -27,7 +27,7 @@ class AlunoController extends Controller
             $this->em->getRepository(Aluno::class)->save($aluno);
             return $response->withJson([
                 'status' => 'ok',
-                'message' => 'Aluno cadastrado com sucesso'
+                'message' => 'Aluno cadastrado com sucesso!'
             ])->withHeader('Content-Type','application/json');
         } catch (\Exception $e) {
             return $response->withJson([

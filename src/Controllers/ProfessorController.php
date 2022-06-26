@@ -23,7 +23,7 @@ class ProfessorController extends Controller
             $this->em->getRepository(Professor::class)->save($prof);
             return $response->withJson([
                 'status' => 'ok',
-                'message' => 'Professor cadastrado com sucesso'
+                'message' => 'Professor cadastrado com sucesso!'
             ])->withHeader('Content-Type','application/json');
         } catch (\Exception $e) {
             return $response->withJson([
