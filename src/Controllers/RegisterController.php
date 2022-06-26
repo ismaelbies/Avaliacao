@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     public function index(Request $request, Response $response) {
         $user = $this->getLogged();
-        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/aluno.phtml',
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'dashboard/index.phtml',
             'user' => $user]);
     }
 
