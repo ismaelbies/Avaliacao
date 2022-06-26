@@ -256,13 +256,15 @@
             body: JSON.stringify(data)
         }).then(response => {
             response.json().then(json => {
-                changeMessageType(json.status, json.message);
+                changeMessageType(json.status, 'message2');
                 message2.innerText = json.message;
                 closeLoading();
                 if(json.status == 'ok') {
                     $("#userTable tbody").empty();
                     getUsers();
-                    $("#modal").modal('hide');
+                    setTimeout(function () {
+                        $("#modal").modal('hide');
+                    }, 1000);
                 }
             });
         });
