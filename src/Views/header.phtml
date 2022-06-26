@@ -31,15 +31,25 @@
                         <i class="fa fa-home"></i>
                     </a>
                 </li>
-<!--                <li>-->
-<!--                    <a href="--><?//= BASEURL ?><!--cadastros/aluno">Usuários-->
-<!--                        <i class="fa fa-user"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
                 <?php if ($user->getTipoUsuario() == 1): ?>
                     <li>
                         <a href="<?= BASEURL ?>cadastros/pergunta">Perguntas
                             <i class="fa fa-question"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= BASEURL ?>">Criar Quiz
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= BASEURL ?>">Resultados dos Alunos
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= BASEURL ?>">Visualizar Quiz Criados
+                            <i class="fa fa-user"></i>
                         </a>
                     </li>
                 <?php endif; ?>
