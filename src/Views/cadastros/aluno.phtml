@@ -203,7 +203,7 @@
         showLoading();
         let name = $("#nameFilter").val();
         let email = $("#emailFilter").val();
-        fetch(`<?= BASEURL ?>api/usuario/?name=${name}&email=${email}`, {
+        fetch(`<?= BASEURL ?>api/cadastros/aluno/?name=${name}&email=${email}`, {
             method: 'GET',
             credentials: "same-origin",
             headers: {
@@ -259,7 +259,11 @@
             response.json().then(json => {
                 message2.innerText = json.message;
                 closeLoading();
-                if(json.status == 'ok') $("#modal").modal('hide');
+                if(json.status == 'ok') {
+                    $("#userTable tbody").empty();
+                    getUsers();
+                    $("#modal").modal('hide');
+                }
             });
         });
     });

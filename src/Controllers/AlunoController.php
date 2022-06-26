@@ -35,4 +35,16 @@ class AlunoController extends Controller
             ])->withStatus(500);
         }
     }
+
+    public function getAlunos(Request $request, Response $response) {
+        $alunos = $this->em->getRepository(Aluno::class)->findAll();
+        $array = [];
+        foreach ($alunos as $a) {
+            $array[] = ['id' => $a->getId(), 'name' => $a->getName(), 'matricula' => $a->getMatricula()];
+        }
+        return $response->withJson([
+            'status' => 'ok',
+            'message' => $array,
+        ])->withHeader('Content-Type','application/json');
+    }
 }

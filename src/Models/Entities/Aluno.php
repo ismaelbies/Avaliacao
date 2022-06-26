@@ -9,6 +9,9 @@ namespace App\Models\Entities;
  */
 class Aluno extends UserQuiz
 {
+    /**
+     * @Column(type="string")
+     */
     public string $matricula = '';
 
     public function getMatricula(): string
