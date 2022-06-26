@@ -212,7 +212,7 @@
         showLoading();
         let name = $("#nameFilter").val();
         let email = $("#emailFilter").val();
-        fetch(`<?= BASEURL ?>api/professor/?name=${name}&email=${email}`, {
+        fetch(`<?= BASEURL ?>api/cadastros/professor/?name=${name}&email=${email}`, {
             method: 'GET',
             credentials: "same-origin",
             headers: {
@@ -252,33 +252,29 @@
         });
     }
 
-    $("#userForm").submit(function (e) {
-        let divMessageForm = document.getElementById('message2');
-        event.preventDefault();
+    form.addEventListener(`submit`, e => {
+        e.preventDefault();
         showLoading();
-        $.ajax({
-            type: 'POST',
-            url: '<?= BASEURL ?>api/professor/',
-            data: new FormData(this),
-            processData: false,
-            contentType: false
-        })
-            .done(function (json) {
+        let data = formDataToJson('userForm');
+        fetch(`<?= BASEURL ?>api/cadastros/professor`, {
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            response.json().then(json => {
+                message2.innerText = json.message;
                 closeLoading();
-                divMessageForm.classList.add("alert-success");
-                divMessageForm.classList.remove("alert-danger");
-                divMessageForm.textContent = json.message;
-                divMessageForm.classList.remove("d-none");
-                $("#modal").modal('hide');
-                filter();
-            })
-            .fail(function (json) {
-                closeLoading();
-                divMessageForm.classList.add("alert-danger");
-                divMessageForm.classList.remove("alert-success");
-                divMessageForm.textContent = json.responseJSON.message;
-                divMessageForm.classList.remove("d-none");
+                if(json.status == 'ok') {
+                    $("#userTable tbody").empty();
+                    getUsers();
+                    $("#modal").modal('hide');
+                }
             });
+        });
     });
 
     //form.addEventListener('submit', e => {
