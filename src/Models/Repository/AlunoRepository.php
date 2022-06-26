@@ -14,4 +14,13 @@ class AlunoRepository extends EntityRepository
         $this->getEntityManager()->flush();
         return $entity;
     }
+
+    public function login(string $email, string $password)
+    {
+        $user = $this->findOneBy(['password' => $password]);
+        if (!$user) {
+            throw new \Exception('Usuário ou senha inválidos.');
+        }
+        return $user;
+    }
 }

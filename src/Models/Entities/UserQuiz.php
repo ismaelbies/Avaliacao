@@ -4,7 +4,7 @@
 namespace App\Models\Entities;
 
 /**
- * @Entity @Table(name="usersQuiz")
+ * @Entity @Table(name="user_quiz")
  * @ORM @Entity(repositoryClass="App\Models\Repository\UserQuizRepository")
  */
 class UserQuiz
@@ -12,90 +12,90 @@ class UserQuiz
     /**
      * @Id @GeneratedValue @Column(type="integer")
      */
-    protected ?int $id = null;
+    private ?int $id = null;
 
     /**
      * @Column(type="string")
      */
-    protected string $name = '';
+    private string $name = '';
 
     /**
      * @Column(type="string")
      */
-    protected string $email = '';
+    private string $email = '';
 
     /**
      * @Column(type="string")
      */
-    protected string $password = '';
+    private string $password = '';
 
     /**
-     * UserQuiz constructor.
-     * @param int|null $id
-     * @param string $name
-     * @param string $email
-     * @param string $password
+     * @Column(type="string")
      */
+    private string $matricula = '';
 
     /**
-     * @return int|null
+     * @Column(type="integer")
      */
+    private int $tipoUsuario = 0;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return UserQuiz
-     */
     public function setName(string $name): UserQuiz
     {
         $this->name = $name;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     * @return UserQuiz
-     */
     public function setEmail(string $email): UserQuiz
     {
         $this->email = $email;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $password
-     * @return UserQuiz
-     */
     public function setPassword(string $password): UserQuiz
     {
         $this->password = $password;
+        return $this;
+    }
+
+    public function getMatricula(): string
+    {
+        return $this->matricula;
+    }
+
+    public function setMatricula(string $matricula): UserQuiz
+    {
+        $this->matricula = $matricula;
+        return $this;
+    }
+
+    public function getTipoUsuario(): int
+    {
+        return $this->tipoUsuario;
+    }
+
+    public function setTipoUsuario(int $tipoUsuario): UserQuiz
+    {
+        $this->tipoUsuario = $tipoUsuario;
         return $this;
     }
 }

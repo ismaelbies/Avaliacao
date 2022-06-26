@@ -3,6 +3,9 @@
 
 namespace App\Controllers;
 use App\Helpers\Session;
+use App\Models\Entities\Aluno;
+use App\Models\Entities\User;
+use App\Models\Entities\UserQuiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -22,14 +25,14 @@ class LoginController extends Controller
     {
         try {
             $data = (array)$request->getParams();
-            $user = $this->em->getRepository(Employee::class)->login($data['login'], $data['password']);
-            $permissions = $this->em->getRepository(EmployeeFunctionality::class)->findBy(['employee' => $user->getId()],['systemFunctionality' => 'asc']);
-            $array = [];
-            foreach ($permissions as $p) {
-                $array[] = $p->getSystemFunctionality()->getId();
-            }
+            $user = $this->em->getRepository(Aluno::class)->login($data['login'], $data['password']);
+//            $permissions = $this->em->getRepository(EmployeeFunctionality::class)->findBy(['employee' => $user->getId()],['systemFunctionality' => 'asc']);
+//            $array = [];
+//            foreach ($permissions as $p) {
+//                $array[] = $p->getSystemFunctionality()->getId();
+//            }
             Session::set('accessType', USER_SESSION);
-            Session::set('permissions', $array);
+//            Session::set('permissions', $array);
             Session::set(Session::get('accessType'), $user);
             $redirect = Session::get('redirect');
             if ($redirect) {

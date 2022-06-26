@@ -1,6 +1,6 @@
 <div class="row">
     <div class="card">
-        <div class="card-header">Aluno
+        <div class="card-header">Cadastro de Usuário
             <div class="form-row float-right">
                 <button type="button" onclick="openModal(0)" class="btn btn-info">Aluno <i class="fa fa-plus"></i></button>
             </div>
@@ -75,6 +75,13 @@
                                 <label for="name">Nome</label>
                                 <input type="text" id="name" name="name" placeholder="Nome" required
                                        class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo">Tipo</label>
+                                <select id="tipo" name="tipo" required class="form-control">
+                                    <option value="0">Aluno</option>
+                                    <option value="1">Professor</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -246,7 +253,7 @@
         e.preventDefault();
         showLoading();
         let data = formDataToJson('userForm');
-        fetch(`<?= BASEURL ?>api/cadastros/aluno`, {
+        fetch(`<?= BASEURL ?>api/cadastros/usuario/`, {
             method: 'POST',
             credentials: "same-origin",
             headers: {

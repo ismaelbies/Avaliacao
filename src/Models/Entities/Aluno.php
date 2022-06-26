@@ -7,8 +7,28 @@ namespace App\Models\Entities;
  * @Entity @Table(name="alunos")
  * @ORM @Entity(repositoryClass="App\Models\Repository\AlunoRepository")
  */
-class Aluno extends UserQuiz
+class Aluno
 {
+    /**
+     * @Id @GeneratedValue @Column(type="integer")
+     */
+    protected ?int $id = null;
+
+    /**
+     * @Column(type="string")
+     */
+    protected string $name = '';
+
+    /**
+     * @Column(type="string")
+     */
+    protected string $email = '';
+
+    /**
+     * @Column(type="string")
+     */
+    protected string $password = '';
+
     /**
      * @Column(type="string")
      */
