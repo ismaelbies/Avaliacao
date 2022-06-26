@@ -10,7 +10,9 @@ use Slim\Http\Response;
 class PerguntaController extends Controller
 {
     public function index(Request $request, Response $response) {
-        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/pergunta.phtml']);
+        $user = $this->getLogged();
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/pergunta.phtml',
+            'user' => $user]);
     }
 
     public function registerPerguntaIndex(Request $request, Response $response) {
@@ -28,9 +30,8 @@ class PerguntaController extends Controller
                 ->setAlternativa5($data['alternativa5'])
                 ->setAlternativaCorreta($data['alternativaCorreta'] ?? '')
                 ->setDescricao($data['descricao'])
-                ->setDificuldade($data['dificuldade'] ?? '')
+                ->setDificuldade($data['dificuldade'] ?? '');
 
-                ->setProfessor(null);
             $this->em->getRepository(Pergunta::class)->save($pergunta);
             return $response->withJson([
                 'status' => 'ok',

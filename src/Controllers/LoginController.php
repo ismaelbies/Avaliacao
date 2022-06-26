@@ -25,7 +25,7 @@ class LoginController extends Controller
     {
         try {
             $data = (array)$request->getParams();
-            $user = $this->em->getRepository(Aluno::class)->login($data['login'], $data['password']);
+            $user = $this->em->getRepository(UserQuiz::class)->login($data['login'], $data['password']);
 //            $permissions = $this->em->getRepository(EmployeeFunctionality::class)->findBy(['employee' => $user->getId()],['systemFunctionality' => 'asc']);
 //            $array = [];
 //            foreach ($permissions as $p) {

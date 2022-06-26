@@ -32,11 +32,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= BASEURL ?>cadastros/professor">Professor
-                        <i class="fa fa-book"></i>
-                    </a>
-                </li>
-                <li>
                     <a href="<?= BASEURL ?>cadastros/pergunta">Perguntas
                         <i class="fa fa-question"></i>
                     </a>
@@ -55,6 +50,7 @@
                             <span class="navbar-toggler-bar bar3"></span>
                         </button>
                     </div>
+                    <span class="navbar-brand">Olá, <?= $user->getName() ?></span>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,6 +58,14 @@
                     <span class="navbar-toggler-bar navbar-kebab"></span>
                     <span class="navbar-toggler-bar navbar-kebab"></span>
                 </button>
+
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASEURL ?>logout"><i class="fa fa-power-off"></i>Sair</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
 

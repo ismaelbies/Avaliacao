@@ -10,6 +10,13 @@ use Slim\Http\Response;
 
 class RegisterController extends Controller
 {
+    public function index(Request $request, Response $response) {
+        $user = $this->getLogged();
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/aluno.phtml',
+            'user' => $user]);
+    }
+
+
     public function registerUsuario(Request $request, Response $response) {
         try {
             $data = (array)$request->getParams();
