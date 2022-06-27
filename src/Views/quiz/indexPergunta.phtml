@@ -110,11 +110,14 @@
     }
 
     function nextPergunta() {
-        // if(arrayRespostas.length === 5) endQuiz();
         let value = getRadioValue('alternativa');
         if(value == undefined) return;
         arrayRespostas[perguntaCount] = value;
         perguntaCount++;
+        if(arrayRespostas.length === 5) {
+            endQuiz();
+            return;
+        }
         createForm();
     }
 
@@ -134,9 +137,10 @@
             response.json().then(json => {
                 closeLoading();
                 if(json.status == 'ok') {
-                    setTimeout(function () {
-                        window.location.href = "<?= BASEURL ?>quiz/resultado/" + json.id;
-                    }, 1500);
+                    alert(json.message);
+                    //setTimeout(function () {
+                    //    window.location.href = "<?//= BASEURL ?>//quiz/resultado/" + json.id;
+                    //}, 1500);
                 }
             });
         });

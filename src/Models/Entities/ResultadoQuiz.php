@@ -17,13 +17,13 @@ class ResultadoQuiz
 
     /**
      * @ManyToOne(targetEntity="UserQuiz")
-     * @JoinColumn(name="professor", referencedColumnName="id")
+     * @JoinColumn(name="quiz", referencedColumnName="id")
      */
     private Quiz $quiz;
 
     /**
      * @ManyToOne(targetEntity="UserQuiz")
-     * @JoinColumn(name="professor", referencedColumnName="id")
+     * @JoinColumn(name="aluno", referencedColumnName="id")
      */
     private UserQuiz $userQuiz;
 

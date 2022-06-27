@@ -55,8 +55,7 @@ class QuizController extends Controller
         try {
             $data = (array)$request->getParams();
             $resultadoQuiz = new ResultadoQuiz();
-            $resultadoQuiz->setQuiz()
-                ->setResult()
+            $resultadoQuiz->setQuiz($this->em->getReference(Quiz::class, $data['quizId']))
                 ->setUserQuiz($this->getLogged());
             $this->em->getRepository(ResultadoQuiz::class)->save($resultadoQuiz);
             return $response->withJson([
