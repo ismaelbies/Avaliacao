@@ -18,10 +18,12 @@ class QuizController extends Controller
 
     public function indexPergunta(Request $request, Response $response) {
         $id = $request->getAttribute('route')->getArgument('id');
+        $count = $request->getAttribute('route')->getArgument('count');
         $user = $this->getLogged();
-        $pergunta = $this->em->getRepository(Pergunta::class)->find($id);
+        $quiz = $this->em->getRepository(Quiz::class)->find($id);
+        $perguntas = $quiz->getPerguntas();
         return $this->renderer->render($response, 'default.phtml', ['page' => 'quiz/indexPergunta.phtml',
-            'user' => $user, 'pergunta' => $pergunta]);
+            'user' => $user, 'quiz' => $quiz, 'pergunta' => $perguntas[$count]->getPergunta()]);
     }
 
     public function getQuiz(Request $request, Response $response) {

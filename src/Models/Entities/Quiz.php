@@ -79,4 +79,15 @@ class Quiz
         $this->name = $name;
         return $this;
     }
+
+    public function getPerguntas()
+    {
+        return $this->perguntas;
+    }
+
+    public function setPerguntas(ArrayCollection $perguntas): Quiz
+    {
+        $this->perguntas = $perguntas;
+        return $this;
+    }
 }
