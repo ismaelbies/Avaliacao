@@ -1,9 +1,11 @@
 <div class="row">
     <div class="card">
-        <div class="card-header">Quiz
+        <div class="card-header" style="text-align:center">Quiz
         </div>
 
         <div class="card-body">
+            <h5>Quizz Disponíveis para Jogar</h5>
+            <br>
             <div class="modal-body no-padding">
                 Exibindo <span id="partial"></span> de <span id="total"></span>
                 <div class="row">
@@ -92,7 +94,7 @@
     }
 
     function generateTableBody(json) {
-        let icons = `<a class="fa fa-star" title="Jogar ${json.name}" href="<?= BASEURL ?>quiz/jogar/${json.id}/0"></a> `;
+        let icons = `<a class="fa fa-play" title="Jogar ${json.name}" href="<?= BASEURL ?>quiz/jogar/${json.id}/0"></a> `;
         return `
             <tr>
                 <td class="text-center">${json.name}</td>
