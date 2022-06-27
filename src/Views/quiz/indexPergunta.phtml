@@ -7,33 +7,9 @@
                 <div class="row">
                     <div class="col-12">
                         <form id="form">
-                            <div class="form-group col-md-12">
-                                <label for="descricao">Pergunta</label><br>
-                                <span><?= $pergunta->getDescricao() ?></span>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="radio" name="alternativa" id="alternativa2">
-                                <span><?= $pergunta->getAlternativa1() ?></span>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="radio" name="alternativa" id="alternativa2">
-                                <span><?= $pergunta->getAlternativa2() ?></span>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="radio" name="alternativa" id="alternativa2">
-                                <span><?= $pergunta->getAlternativa3() ?></span>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="radio" name="alternativa" id="alternativa2">
-                                <span><?= $pergunta->getAlternativa4() ?></span>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="radio" name="alternativa" id="alternativa2">
-                                <span><?= $pergunta->getAlternativa5() ?></span>
-                            </div>
+                            <div id="divForm"></div>
                             <div class="form-row">
-                                <button type="button" class="btn btn-danger float-right" onclick="resetForm()">Limpar</button>
-                                <button type="submit" class="btn btn-success float-right">Cadastrar</button>
+                                <button type="button" onclick="nextPergunta()" class="btn btn-success">Próximo</button>
                             </div>
                         </form>
                     </div>
@@ -58,6 +34,9 @@
     let total = 1;
     let partial = 0;
     let index = 0;
+    let arrayPerguntas = <?= $perguntas ?>;
+    let perguntaCount = 0;
+    let arrayRespostas = [];
 
     function openModal(id) {
         document.getElementById('message2').classList.add('d-none');
@@ -94,6 +73,84 @@
         total = 1;
         $("#userTable tbody").empty();
         getUsers();
+    }
+
+    function createForm() {
+        let pergunta = arrayPerguntas[perguntaCount];
+        let div = document.getElementById('divForm');
+        div.innerHTML = '';
+        let html = `
+                            <div class="form-group col-md-12">
+                                <label for="descricao">Pergunta</label><br>
+                                <span>${pergunta['descricao']}</span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="radio" name="alternativa" id="alternativa1" value="1">
+                                <span>${pergunta['alternativa1']}</span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="radio" name="alternativa" id="alternativa2" value="2">
+                                <span>${pergunta['alternativa2']}</span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="radio" name="alternativa" id="alternativa3" value="3">
+                                <span>${pergunta['alternativa3']}</span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="radio" name="alternativa" id="alternativa4" value="4">
+                                <span>${pergunta['alternativa4']}</span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="radio" name="alternativa" id="alternativa5" value="5">
+                                <span>${pergunta['alternativa5']}</span>
+                            </div>
+
+        `;
+        div.innerHTML = html;
+    }
+
+    function nextPergunta() {
+        if(arrayRespostas.length === 5) endQuiz();
+        if(arrayRespostas[perguntaCount] == undefined) return;
+        arrayRespostas[perguntaCount] = getRadioValue('alternativa');
+        perguntaCount++;
+        createForm();
+    }
+
+    function endQuiz() {
+        showLoading();
+        let data = formDataToJson('form');
+        data.quizId = '<?= $quiz->getId() ?>';
+        fetch(`<?= BASEURL ?>api/quiz`, {
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        }).then(response => {
+            response.json().then(json => {
+                closeLoading();
+                if(json.status == 'ok') {
+                    setTimeout(function () {
+                        window.location.href = "<?= BASEURL ?>quiz/resultado/" + json.id;
+                    }, 1500);
+                }
+            });
+        });
+    }
+
+    function getRadioValue(theRadioGroup)
+    {
+        var elements = document.getElementsByName(theRadioGroup);
+        for (var i = 0, l = elements.length; i < l; i++)
+        {
+            if (elements[i].checked)
+            {
+                return elements[i].value;
+            }
+        }
     }
 
     function changeMessageType(type, id) {
@@ -211,35 +268,8 @@
         });
     });
 
-    //form.addEventListener('submit', e => {
-    //    e.preventDefault();
-    //    showLoading();
-    //    let formData = formDataToJson('userForm');
-    //    let method = 'POST';
-    //    if(formData.userId > 0) method = 'PUT';
-    //    fetch(`<?//= BASEURL ?>//usuario/`, {
-    //        method: 'POST',
-    //        credentials: "same-origin",
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json',
-    //        },
-    //        body: JSON.stringify(formData),
-    //    }).then(response => {
-    //        response.json().then(json => {
-    //            closeLoading();
-    //            changeMessageType(json.status, 'message2');
-    //            message2.innerText = json.message;
-    //            if (json.status === 'ok') {
-    //                $("#modal").modal('hide');
-    //                filter();
-    //            }
-    //        });
-    //    });
-    //});
-
     $(document).ready(function () {
-        getUsers();
+        createForm(0);
     });
 
 </script>

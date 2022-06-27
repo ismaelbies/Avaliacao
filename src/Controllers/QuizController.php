@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Entities\Pergunta;
 use App\Models\Entities\PerguntaQuiz;
 use App\Models\Entities\Quiz;
+use App\Models\Entities\ResultadoQuiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -22,8 +23,20 @@ class QuizController extends Controller
         $user = $this->getLogged();
         $quiz = $this->em->getRepository(Quiz::class)->find($id);
         $perguntas = $quiz->getPerguntas();
+        $array = [];
+        $i = 0;
+        foreach ($perguntas as $p) {
+            $array[$i]['descricao'] = [$p->getPergunta()->getDescricao()];
+            $array[$i]['alternativa1'] = [$p->getPergunta()->getAlternativa1()];
+            $array[$i]['alternativa2'] = [$p->getPergunta()->getAlternativa2()];
+            $array[$i]['alternativa3'] = [$p->getPergunta()->getAlternativa3()];
+            $array[$i]['alternativa4'] = [$p->getPergunta()->getAlternativa4()];
+            $array[$i]['alternativa5'] = [$p->getPergunta()->getAlternativa5()];
+            $i++;
+        }
+        $array = json_encode($array);
         return $this->renderer->render($response, 'default.phtml', ['page' => 'quiz/indexPergunta.phtml',
-            'user' => $user, 'quiz' => $quiz, 'pergunta' => $perguntas[$count]->getPergunta()]);
+            'user' => $user, 'quiz' => $quiz, 'perguntas' => $array]);
     }
 
     public function getQuiz(Request $request, Response $response) {
@@ -36,5 +49,25 @@ class QuizController extends Controller
             'status' => 'ok',
             'message' => $array
         ])->withHeader('Content-Type','application/json');
+    }
+
+    public function endQuiz(Request $request, Response $response) {
+        try {
+            $data = (array)$request->getParams();
+            $resultadoQuiz = new ResultadoQuiz();
+            $resultadoQuiz->setQuiz()
+                ->setResult()
+                ->setUserQuiz($this->getLogged());
+            $this->em->getRepository(ResultadoQuiz::class)->save($resultadoQuiz);
+            return $response->withJson([
+                'status' => 'ok',
+                'message' => 'Quiz registrado com sucesso',
+            ])->withHeader('Content-Type','application/json');
+        } catch (\Exception $e) {
+            return $response->withJson([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ])->withStatus(500);
+        }
     }
 }
