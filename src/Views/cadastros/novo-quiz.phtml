@@ -1,16 +1,16 @@
 <div class="row">
     <div class="card">
-        <div class="card-header">Cadastro de Perguntas
+        <div class="card-header" style="text-align:center">Cadastro de Quizz
         </div>
         <div class="card-body">
             <div class="modal-body no-padding">
                 <div class="row">
                     <div class="col-12">
                         <form id="form">
-                            <h5 for="perguntas">Escolha cinco questões</h5>
+
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="name">Nome</label>
+                                    <label for="name">Descrição do Quizz</label>
                                     <input class="form-control" id="name" name="name">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -23,6 +23,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <h5 for="perguntas">Escolha 20 questões dentre as disponíveis abaixo:</h5>
                                 <?php foreach ($perguntas as $p): ?>
                                     <div class="col-md-12">
                                         <input type="checkbox" name="perguntas[]" id="perguntas[<?= $p->getId() ?>]"
