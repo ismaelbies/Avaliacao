@@ -110,9 +110,10 @@
     }
 
     function nextPergunta() {
-        if(arrayRespostas.length === 5) endQuiz();
-        if(arrayRespostas[perguntaCount] == undefined) return;
-        arrayRespostas[perguntaCount] = getRadioValue('alternativa');
+        // if(arrayRespostas.length === 5) endQuiz();
+        let value = getRadioValue('alternativa');
+        if(value == undefined) return;
+        arrayRespostas[perguntaCount] = value;
         perguntaCount++;
         createForm();
     }
