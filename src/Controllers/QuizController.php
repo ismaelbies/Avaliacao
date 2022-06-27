@@ -2,6 +2,8 @@
 
 
 namespace App\Controllers;
+use App\Models\Entities\Pergunta;
+use App\Models\Entities\PerguntaQuiz;
 use App\Models\Entities\Quiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -12,6 +14,14 @@ class QuizController extends Controller
         $user = $this->getLogged();
         return $this->renderer->render($response, 'default.phtml', ['page' => 'quiz/index.phtml',
             'user' => $user]);
+    }
+
+    public function indexPergunta(Request $request, Response $response) {
+        $id = $request->getAttribute('route')->getArgument('id');
+        $user = $this->getLogged();
+        $pergunta = $this->em->getRepository(Pergunta::class)->find($id);
+        return $this->renderer->render($response, 'default.phtml', ['page' => 'quiz/indexPergunta.phtml',
+            'user' => $user, 'pergunta' => $pergunta]);
     }
 
     public function getQuiz(Request $request, Response $response) {
