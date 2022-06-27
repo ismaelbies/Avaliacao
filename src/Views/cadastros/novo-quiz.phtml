@@ -120,9 +120,9 @@
         icons += `<i class="fa fa-times text-danger" title="Deletar ${json.name}" onclick="removeUser(${json.id})"></i> `;
         return `
             <tr>
+                <td class="text-center">${json.id}</td>
                 <td class="text-center">${json.name}</td>
-                <td class="text-center">${json.email}</td>
-                <td class="text-center">${formatPhoneNumber(json.phone)}</td>
+                <td class="text-center">${json.dificuldade}</td>
                 <td class="text-center">${icons}</td>
             </tr>
         `;
@@ -134,15 +134,6 @@
         total = 1;
         partial = 0;
         getUsers();
-    }
-
-    function formatPhoneNumber(phoneNumberString) {
-        var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
-        var match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-        if (match) {
-            return '(' + match[1] + ') ' + match[2] + '-' + match[3];
-        }
-        return '';
     }
 
     function getUsers() {
