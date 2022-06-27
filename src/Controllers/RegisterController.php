@@ -5,6 +5,8 @@ namespace App\Controllers;
 
 
 use App\Models\Entities\Pergunta;
+use App\Models\Entities\PerguntaQuiz;
+use App\Models\Entities\Quiz;
 use App\Models\Entities\UserQuiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -66,9 +68,16 @@ class RegisterController extends Controller
     public function registerQuiz(Request $request, Response $response) {
         try {
             $data = (array)$request->getParams();
+            $perguntas = (array)$request->getParam('perguntas');
             $quiz = new Quiz();
-
-
+            $quiz->setName($data['name'] ?? '')
+                ->setDificuldade($data['dificuldade'] ?? '');
+            foreach ($perguntas as $p) {
+                $perguntaQuiz = new PerguntaQuiz();
+                $perguntaQuiz->setPergunta($this->em->getReference(Pergunta::class, $p));
+                $quiz->addPergunta($perguntaQuiz);
+            }
+            $this->em->getRepository(Quiz::class)->save($quiz);
             return $response->withJson([
                 'status' => 'ok',
                 'message' => 'Quiz cadastrado com sucesso!'

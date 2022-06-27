@@ -8,33 +8,47 @@
                     <div class="col-12">
                         <form id="form">
                             <h5 for="perguntas">Escolha cinco questões</h5>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="name">Nome</label>
+                                    <input class="form-control" id="name" name="name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="dificuldade">Dificuldade</label>
+                                    <select class="form-control" id="dificuldade" name="dificuldade">
+                                        <option value="Fácil">Fácil</option>
+                                        <option value="Média">Média</option>
+                                        <option value="Difícil">Difícil</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <?php foreach ($perguntas as $p): ?>
                                     <div class="col-md-12">
-                                        <input type="checkbox" name="pergunta[]" id="pergunta[<?= $p->getId() ?>]"
+                                        <input type="checkbox" name="perguntas[]" id="perguntas[<?= $p->getId() ?>]"
                                                value="<?= $p->getId() ?>">
-                                        <label for="pergunta[<?= $p->getId() ?>]"><?= $p->getDescricao() ?></label>
+                                        <label for="perguntas[<?= $p->getId() ?>]"><?= $p->getDescricao() ?></label>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
 
                     </div>
                 </div>
-                    <div class="form-row">
-                        <button type="button" class="btn btn-danger float-right" onclick="resetForm()">Limpar</button>
-                        <button type="submit" class="btn btn-success float-right">Cadastrar</button>
-                    </div>
-                    </form>
+                <div class="form-row">
+                    <button type="button" class="btn btn-danger float-right" onclick="resetForm()">Limpar</button>
+                    <button type="submit" class="btn btn-success float-right">Cadastrar</button>
                 </div>
+                </form>
             </div>
-            <br>
-            <div class="col">
-                <div class="footer">
-                    <div id="message" class="alert alert-danger d-none">teste</div>
-                </div>
+        </div>
+        <br>
+        <div class="col">
+            <div class="footer">
+                <div id="message" class="alert alert-danger d-none">teste</div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 </div>
@@ -178,7 +192,7 @@
         e.preventDefault();
         showLoading();
         let data = formDataToJson('form');
-        fetch(`<?= BASEURL ?>api/cadastros/pergunta`, {
+        fetch(`<?= BASEURL ?>api/cadastros/quiz`, {
             method: 'POST',
             credentials: "same-origin",
             headers: {

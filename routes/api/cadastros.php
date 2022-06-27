@@ -11,6 +11,8 @@ $app->get('/api/cadastros/usuario/{tipo}/', fn(Request $request, Response $respo
 
 $app->post('/api/cadastros/usuario/', fn(Request $request, Response $response) => $this->RegisterController->registerUsuario($request, $response));
 
+$app->post('/api/cadastros/quiz/', fn(Request $request, Response $response) => $this->RegisterController->registerQuiz($request, $response));
+
 $app->post('/api/cadastros/professor/', fn(Request $request, Response $response) => $this->ProfessorController->registerProfessor($request, $response));
 
 $app->post('/api/cadastros/pergunta/', fn(Request $request, Response $response) => $this->PerguntaController->registerPergunta($request, $response));
