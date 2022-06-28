@@ -6,9 +6,9 @@
         <div class="card-body">
             <div class="modal-body no-padding">
                 <div class="row">
-<!--                    <div class="col-12">-->
-<!--                        Exibindo <span id="partial"></span> de <span id="total"></span>-->
-<!--                    </div>-->
+                    <!--                    <div class="col-12">-->
+                    <!--                        Exibindo <span id="partial"></span> de <span id="total"></span>-->
+                    <!--                    </div>-->
                 </div>
                 <br>
                 <div class="row">
@@ -17,6 +17,9 @@
                             <thead>
                             <th class="text-center">Quiz</th>
                             <th class="text-center">Professor</th>
+                            <?php if ($user->getTipoUsuario() == 1): ?>
+                                <th class="text-center">Aluno</th>
+                            <?php endif; ?>
                             <th class="text-center">Nota</th>
                             <th class="text-center">Ações</th>
                             </thead>
@@ -25,8 +28,11 @@
                                 <tr>
                                     <td class="text-center"><?= $r->getQuiz()->getName() ?></td>
                                     <td class="text-center"><?= $r->getQuiz()->getName() ?></td>
+                                    <?php if ($user->getTipoUsuario() == 1): ?>
+                                        <td class="text-center"><?= $r->getUserQuiz()->getName() ?></td>
+                                    <?php endif; ?>
                                     <td class="text-center"><?= $r->getResult() ?></td>
-                                    <td class="text-center"><?= $r->getResult() ?></td>
+                                    <td class="text-center">---</td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -117,7 +123,7 @@
         $("#userId").val(id);
         if (id > 0) {
             showLoading();
-            $("#file").attr('required',false);
+            $("#file").attr('required', false);
             fetch(`<?= BASEURL ?>api/usuario/` + id, {
                 method: 'GET',
                 credentials: "same-origin",
@@ -232,7 +238,7 @@
                 closeLoading();
                 changeMessageType(json.status, 'message2');
                 message.innerText = json.message;
-                if(json.status == 'ok') filter();
+                if (json.status == 'ok') filter();
             });
         });
     }
@@ -254,7 +260,7 @@
                 changeMessageType(json.status, 'message2');
                 message2.innerText = json.message;
                 closeLoading();
-                if(json.status == 'ok') {
+                if (json.status == 'ok') {
                     $("#userTable tbody").empty();
                     getUsers();
                     setTimeout(function () {

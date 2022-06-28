@@ -20,7 +20,10 @@ class QuizController extends Controller
 
     public function indexResultados(Request $request, Response $response) {
         $user = $this->getLogged();
-        $resultados = $this->em->getRepository(ResultadoQuiz::class)->findBy(['userQuiz' => $user->getId()]);
+        $resultados = $this->em->getRepository(ResultadoQuiz::class)->findAll();
+        if($user->getTipoUsuario() == 0) {
+            $resultados = $this->em->getRepository(ResultadoQuiz::class)->findBy(['userQuiz' => $user->getId()]);
+        }
         return $this->renderer->render($response, 'default.phtml', ['page' => 'quiz/resultadoIndex.phtml',
             'user' => $user, 'resultados' => $resultados]);
     }
