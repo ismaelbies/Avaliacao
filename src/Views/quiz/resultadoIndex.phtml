@@ -21,6 +21,7 @@
                                 <th class="text-center">Aluno</th>
                             <?php endif; ?>
                             <th class="text-center">Nota</th>
+                            <th class="text-center">Data</th>
                             <th class="text-center">Ações</th>
                             </thead>
                             <tbody>
@@ -32,6 +33,7 @@
                                         <td class="text-center"><?= $r->getUserQuiz()->getName() ?></td>
                                     <?php endif; ?>
                                     <td class="text-center"><?= $r->getResult() ?></td>
+                                    <td class="text-center"><?= $r->getCreated() != null ? $r->getCreated()->format('d/m/Y H:i:s') : '---' ?></td>
                                     <td class="text-center">---</td>
                                 </tr>
                             <?php endforeach; ?>
