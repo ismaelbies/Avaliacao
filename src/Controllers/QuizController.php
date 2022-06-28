@@ -22,7 +22,7 @@ class QuizController extends Controller
         $user = $this->getLogged();
         $resultados = $this->em->getRepository(ResultadoQuiz::class)->findAll();
         if($user->getTipoUsuario() == 0) {
-            $resultados = $this->em->getRepository(ResultadoQuiz::class)->findBy(['userQuiz' => $user->getId()]);
+            $resultados = $this->em->getRepository(ResultadoQuiz::class)->findBy(['userQuiz' => $user->getId()],['id' => 'desc']);
         }
         return $this->renderer->render($response, 'default.phtml', ['page' => 'quiz/resultadoIndex.phtml',
             'user' => $user, 'resultados' => $resultados]);
@@ -67,6 +67,7 @@ class QuizController extends Controller
             $data = (array)$request->getParams();
             $respostas = $request->getParam('respostas');
             $pontos = 0;
+            $valor = 10 / count($respostas);
             $quiz = $this->em->getReference(Quiz::class, $data['quizId']);
             $perguntas = $quiz->getPerguntas();
             $i = 0;
@@ -78,7 +79,7 @@ class QuizController extends Controller
             }
             $resultadoQuiz = new ResultadoQuiz();
             $resultadoQuiz->setQuiz($quiz)
-                ->setResult($pontos)
+                ->setResult($pontos*$valor)
                 ->setUserQuiz($this->getLogged());
             $this->em->getRepository(ResultadoQuiz::class)->save($resultadoQuiz);
             return $response->withJson([

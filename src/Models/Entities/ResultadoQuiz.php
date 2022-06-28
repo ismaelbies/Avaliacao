@@ -28,7 +28,7 @@ class ResultadoQuiz
     private UserQuiz $userQuiz;
 
     /**
-     * @Column(type="integer")
+     * @Column(type="float")
      */
     private int $result = 0;
 
@@ -86,19 +86,12 @@ class ResultadoQuiz
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getResult(): int
+    public function getResult(): float
     {
         return $this->result;
     }
 
-    /**
-     * @param int $result
-     * @return ResultadoQuiz
-     */
-    public function setResult(int $result): ResultadoQuiz
+    public function setResult(float $result): ResultadoQuiz
     {
         $this->result = $result;
         return $this;

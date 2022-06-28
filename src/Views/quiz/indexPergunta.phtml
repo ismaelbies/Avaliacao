@@ -140,9 +140,9 @@
                 closeLoading();
                 if(json.status == 'ok') {
                     alert(json.message);
-                    //setTimeout(function () {
-                    //    window.location.href = "<?//= BASEURL ?>//quiz/resultado/" + json.id;
-                    //}, 1500);
+                    setTimeout(function () {
+                        window.location.href = "<?= BASEURL ?>quiz/resultados/";
+                    }, 1500);
                 }
             });
         });
