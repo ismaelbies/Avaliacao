@@ -240,33 +240,6 @@
         });
     });
 
-    //form.addEventListener('submit', e => {
-    //    e.preventDefault();
-    //    showLoading();
-    //    let formData = formDataToJson('userForm');
-    //    let method = 'POST';
-    //    if(formData.userId > 0) method = 'PUT';
-    //    fetch(`<?//= BASEURL ?>//usuario/`, {
-    //        method: 'POST',
-    //        credentials: "same-origin",
-    //        headers: {
-    //            'Accept': 'application/json',
-    //            'Content-Type': 'application/json',
-    //        },
-    //        body: JSON.stringify(formData),
-    //    }).then(response => {
-    //        response.json().then(json => {
-    //            closeLoading();
-    //            changeMessageType(json.status, 'message2');
-    //            message2.innerText = json.message;
-    //            if (json.status === 'ok') {
-    //                $("#modal").modal('hide');
-    //                filter();
-    //            }
-    //        });
-    //    });
-    //});
-
     $(document).ready(function () {
         getUsers();
     });
