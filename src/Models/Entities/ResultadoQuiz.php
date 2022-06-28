@@ -23,7 +23,7 @@ class ResultadoQuiz
 
     /**
      * @ManyToOne(targetEntity="UserQuiz")
-     * @JoinColumn(name="user", referencedColumnName="id")
+     * @JoinColumn(name="userQuiz", referencedColumnName="id")
      */
     private UserQuiz $userQuiz;
 

@@ -7,6 +7,7 @@ namespace App\Controllers;
 use App\Models\Entities\Pergunta;
 use App\Models\Entities\PerguntaQuiz;
 use App\Models\Entities\Quiz;
+use App\Models\Entities\ResultadoQuiz;
 use App\Models\Entities\UserQuiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -39,9 +40,8 @@ class RegisterController extends Controller
     }
 
     public function indexNovoUsuario(Request $request, Response $response) {
-        return $this->renderer->render($response, 'default2.phtml', ['page' => 'cadastros/novo-usuario.phtml',]);
+        return $this->renderer->render($response, 'default2.phtml', ['page' => 'cadastros/novo-usuario.phtml']);
     }
-
 
     public function registerUsuario(Request $request, Response $response) {
         try {
