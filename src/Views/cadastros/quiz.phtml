@@ -212,9 +212,9 @@
             response.json().then(json => {
                 closeLoading();
                 total = json.total;
-                partial += json.partial;
+                partial += json.total;
                 $("#total").text(total);
-                $("#partial").text(partial);
+                $("#partial").text(total);
                 let users = json.message;
                 let usersHtml = users.map(generateTableBody);
                 $("#userTable tbody").append(usersHtml);

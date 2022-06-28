@@ -65,9 +65,11 @@ class PerguntaController extends Controller
                 'professor' => $p->getProfessor() != null ? $p->getProfessor()->getName() : '---',
                 'descricao' => $p->getDescricao(), 'dificuldade' => $p->getDificuldade()];
         }
+        $total = count($array);
         return $response->withJson([
             'status' => 'ok',
             'message' => $array,
+            'total' => $total
         ])->withHeader('Content-Type','application/json');
     }
 }

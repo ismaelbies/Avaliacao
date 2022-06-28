@@ -70,9 +70,11 @@ class QuizController extends Controller
         foreach ($quiz as $q) {
             $array[] = ['id' => $q->getId(), 'name' => $q->getName(), 'dificuldade' => $q->getDificuldade()];
         }
+        $total = count($array);
         return $response->withJson([
             'status' => 'ok',
-            'message' => $array
+            'message' => $array,
+            'total' => $total
         ])->withHeader('Content-Type','application/json');
     }
 
