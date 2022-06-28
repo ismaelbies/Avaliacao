@@ -20,9 +20,9 @@ class QuizController extends Controller
 
     public function indexResultados(Request $request, Response $response) {
         $user = $this->getLogged();
-        $resultados = $this->em->getRepository(ResultadoQuiz::class)->findAll();
+        $resultados = $this->em->getRepository(ResultadoQuiz::class)->findBy([],['result' => 'desc']);
         if($user->getTipoUsuario() == 0) {
-            $resultados = $this->em->getRepository(ResultadoQuiz::class)->findBy(['userQuiz' => $user->getId()],['id' => 'desc']);
+            $resultados = $this->em->getRepository(ResultadoQuiz::class)->findBy(['userQuiz' => $user->getId()],['result' => 'desc']);
         }
         return $this->renderer->render($response, 'default.phtml', ['page' => 'quiz/resultadoIndex.phtml',
             'user' => $user, 'resultados' => $resultados]);
