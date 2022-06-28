@@ -28,11 +28,13 @@
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-
+                            <div id="checkDiv" class="float-right">
+                            </div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <button type="button" class="btn btn-danger float-right" onclick="resetForm()">Limpar</button>
+                <div class="form-row float-right">
+                    <button type="button" class="btn btn-info" id="all" onclick="checkAll()">Selecionar Todos</button>
+                    <button type="button" class="btn btn-danger" id="uncheck" onclick="uncheckAll()">Limpar</button>
                     <button type="submit" class="btn btn-success float-right">Cadastrar</button>
                 </div>
                 </form>
@@ -58,6 +60,14 @@
     let total = 1;
     let partial = 0;
     let index = 0;
+
+    function checkAll() {
+        $('input:checkbox').prop('checked', true);
+    }
+
+    function uncheckAll() {
+        $('input:checkbox').prop('checked', false);
+    }
 
     function openModal(id) {
         document.getElementById('message2').classList.add('d-none');
