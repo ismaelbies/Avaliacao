@@ -57,6 +57,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div id="message" class="alert alert-success d-none">teste</div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-info float-right" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -223,15 +228,13 @@
             body: JSON.stringify(data)
         }).then(response => {
             response.json().then(json => {
-                changeMessageType(json.status, 'message2');
-                message2.innerText = json.message;
                 closeLoading();
+                message.innerText = json.message;
+                changeMessageType(json.status, 'message');
                 if(json.status == 'ok') {
-                    $("#userTable tbody").empty();
-                    getUsers();
                     setTimeout(function () {
-                        $("#modal").modal('hide');
-                    }, 3000);
+                        window.location.href = "<?= BASEURL ?>/login";
+                    }, 1800);
                 }
             });
         });
