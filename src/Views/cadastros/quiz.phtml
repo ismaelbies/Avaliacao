@@ -14,14 +14,12 @@
                         <form id="filter">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="descriptionFilter">Descrição</label>
-                                    <input type="text" id="descriptionFilter" name="descriptionFilter" class="form-control"
-                                           placeholder="Descrição do Quiz">
-                                </div>
-                                <div class="form-group col-md-6">
                                     <label for="dificuldadeFilter">Dificuldade</label>
-                                    <input type="text" id="dificuldadeFilter" name="dificuldadeFilter" class="form-control"
-                                           placeholder="Dificuldade do Quiz">
+                                    <select type="text" id="dificuldadeFilter" name="dificuldadeFilter" class="form-control">
+                                        <option value="">Fácil</option>
+                                        <option value="">Médio</option>
+                                        <option value="">Difícil</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -200,20 +198,10 @@
         getUsers();
     }
 
-    /*function formatPhoneNumber(phoneNumberString) {
-        var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
-        var match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-        if (match) {
-            return '(' + match[1] + ') ' + match[2] + '-' + match[3];
-        }
-        return '';
-    }*/
-
     function getUsers() {
         showLoading();
-        let name = $("#nameFilter").val();
-        let email = $("#emailFilter").val();
-        fetch(`<?= BASEURL ?>api/quiz/`, {
+        let dificuldade = $("#dificuldadeFilter").val();
+        fetch(`<?= BASEURL ?>api/quiz/?dificuldade=${dificuldade}`, {
             method: 'GET',
             credentials: "same-origin",
             headers: {

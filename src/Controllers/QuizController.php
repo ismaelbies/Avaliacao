@@ -62,6 +62,20 @@ class QuizController extends Controller
         ])->withHeader('Content-Type','application/json');
     }
 
+    public function getQuizSearch(Request $request, Response $response) {
+        $filter = $request->getQueryParams();
+        $quiz = $this->em->getRepository(Quiz::class)->findAll();
+        if($filter['dificuldade']) $quiz = $this->em->getRepository(Quiz::class)->findBy(['dificuldade' => $filter['dificuldade']],['id' => 'desc']);
+        $array = [];
+        foreach ($quiz as $q) {
+            $array[] = ['id' => $q->getId(), 'name' => $q->getName(), 'dificuldade' => $q->getDificuldade()];
+        }
+        return $response->withJson([
+            'status' => 'ok',
+            'message' => $array
+        ])->withHeader('Content-Type','application/json');
+    }
+
     public function endQuiz(Request $request, Response $response) {
         try {
             $data = (array)$request->getParams();

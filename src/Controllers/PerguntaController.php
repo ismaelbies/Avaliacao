@@ -12,8 +12,9 @@ class PerguntaController extends Controller
 {
     public function index(Request $request, Response $response) {
         $user = $this->getLogged();
+        $professores = $this->em->getRepository(UserQuiz::class)->findBy(['tipoUsuario' => 1],['name' => 'asc']);
         return $this->renderer->render($response, 'default.phtml', ['page' => 'cadastros/pergunta.phtml',
-            'user' => $user]);
+            'user' => $user, 'professores' => $professores]);
     }
 
     public function registerPerguntaIndex(Request $request, Response $response) {
@@ -51,7 +52,13 @@ class PerguntaController extends Controller
     }
 
     public function getPerguntas(Request $request, Response $response) {
+        $filter = $request->getQueryParams();
         $perguntas = $this->em->getRepository(Pergunta::class)->findAll();
+        if($filter['dificuldade']) $perguntas = $this->em->getRepository(Pergunta::class)->findBy(['dificuldade' => $filter['dificuldade']],['id' => 'desc']);
+        if($filter['professor']) $perguntas = $this->em->getRepository(Pergunta::class)->findBy(['professor' => $filter['professor']],['id' => 'desc']);
+        if($filter['professor'] && $filter['dificuldade']) $perguntas = $this->em->getRepository(Pergunta::class)->findBy(['dificuldade' => $filter['dificuldade'], 'professor' => $filter['professor']],['id' => 'desc']);
+//        if($filter['professor']) $this->em->getRepository(Pergunta::class)->findBy(['dificuldade' => $filter['dificuldade']],['id' => 'desc']);
+
         $array = [];
         foreach ($perguntas as $p) {
             $array[] = ['id' => $p->getId(),
