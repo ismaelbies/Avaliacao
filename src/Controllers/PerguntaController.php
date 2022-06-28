@@ -4,6 +4,7 @@
 namespace App\Controllers;
 use App\Models\Entities\Aluno;
 use App\Models\Entities\Pergunta;
+use App\Models\Entities\UserQuiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -23,6 +24,7 @@ class PerguntaController extends Controller
 
     public function registerPergunta(Request $request, Response $response) {
         try {
+            $user = $this->getLogged();
             $data = (array)$request->getParams();
             $pergunta = new Pergunta();
             $pergunta->setAlternativa1($data['alternativa1'])

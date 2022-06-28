@@ -114,7 +114,7 @@
         if(value == undefined) return;
         arrayRespostas[perguntaCount] = value;
         perguntaCount++;
-        if(arrayRespostas.length === 5) {
+        if(arrayRespostas.length === 2) {
             endQuiz();
             return;
         }
@@ -125,6 +125,8 @@
         showLoading();
         let data = formDataToJson('form');
         data.quizId = '<?= $quiz->getId() ?>';
+        data.respostas = arrayRespostas;
+        data.userId = <?= $user->getId() ?>;
         fetch(`<?= BASEURL ?>api/quiz`, {
             method: 'POST',
             credentials: "same-origin",

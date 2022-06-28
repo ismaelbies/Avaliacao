@@ -16,14 +16,14 @@ class ResultadoQuiz
     private ?int $id = null;
 
     /**
-     * @ManyToOne(targetEntity="UserQuiz")
+     * @ManyToOne(targetEntity="Quiz")
      * @JoinColumn(name="quiz", referencedColumnName="id")
      */
     private Quiz $quiz;
 
     /**
      * @ManyToOne(targetEntity="UserQuiz")
-     * @JoinColumn(name="aluno", referencedColumnName="id")
+     * @JoinColumn(name="user", referencedColumnName="id")
      */
     private UserQuiz $userQuiz;
 

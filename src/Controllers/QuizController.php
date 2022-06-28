@@ -6,6 +6,7 @@ use App\Models\Entities\Pergunta;
 use App\Models\Entities\PerguntaQuiz;
 use App\Models\Entities\Quiz;
 use App\Models\Entities\ResultadoQuiz;
+use App\Models\Entities\UserQuiz;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -18,9 +19,9 @@ class QuizController extends Controller
     }
 
     public function indexPergunta(Request $request, Response $response) {
+        $user = $this->getLogged();
         $id = $request->getAttribute('route')->getArgument('id');
         $count = $request->getAttribute('route')->getArgument('count');
-        $user = $this->getLogged();
         $quiz = $this->em->getRepository(Quiz::class)->find($id);
         $perguntas = $quiz->getPerguntas();
         $array = [];
@@ -54,8 +55,20 @@ class QuizController extends Controller
     public function endQuiz(Request $request, Response $response) {
         try {
             $data = (array)$request->getParams();
+            $respostas = $request->getParam('respostas');
+            $pontos = 0;
+            $quiz = $this->em->getReference(Quiz::class, $data['quizId']);
+            $perguntas = $quiz->getPerguntas();
+            $i = 0;
+            foreach ($perguntas as $p) {
+                if($respostas[$i] == $p->getPergunta()->getAlternativaCorreta()) {
+                    $pontos++;
+                }
+                $i++;
+            }
             $resultadoQuiz = new ResultadoQuiz();
-            $resultadoQuiz->setQuiz($this->em->getReference(Quiz::class, $data['quizId']))
+            $resultadoQuiz->setQuiz($quiz)
+                ->setResult($pontos)
                 ->setUserQuiz($this->getLogged());
             $this->em->getRepository(ResultadoQuiz::class)->save($resultadoQuiz);
             return $response->withJson([
